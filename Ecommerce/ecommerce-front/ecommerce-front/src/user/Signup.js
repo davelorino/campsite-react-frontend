@@ -2,7 +2,8 @@
 // users Signin
 import React, { useState } from "react";
 import Layout from '../core/Layout';
-import {API} from '../config';
+import {signup} from '../auth';
+import {Link} from 'react-router-dom';
 
 const Signup = () => {
   const [values, setValues] = useState({
@@ -15,31 +16,30 @@ const Signup = () => {
     success: ""
   });
 
-  const { name, email, password, studying, skills } = values;
+  const { name, email, password, studying, skills, success, error } = values;
   
-  
-  
-
-  const signup = user => {
-    fetch(`${API}/signup`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(user)
-    })
-      .then(response => {
-        return response.json();
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+ 
 
   const clickSubmit = event => {
     event.preventDefault();
-    signup({ name, email, password, studying, skills });
+    setValues({...values, error: false});
+    signup({ name, email, password, studying, skills })
+    .then( data => {
+      if(data.error) {
+        setValues({...values, error: data.error, success: false})
+      } else {
+        setValues({
+          ...values,
+          name: '',
+          email: '',
+          password: '',
+          studying: '',
+          skills: [''],
+          error: '',
+          success: true 
+        })
+      }
+    })
   };
 
   const handleChange = name => event => {
@@ -52,7 +52,7 @@ const Signup = () => {
         <div className="input-group">
           <input value={skill} placeholder="Enter a skill" onChange={e => updateSkill(e, idx)} type="text" className="form-control" />
           <div clasName="input-group-append">
-      <button className="btn btn-danger mb-3" type = "button" id = "button-addon2" onClick={() => removeSkill(idx)}>x</button>
+      <button className="btn btn-outline-danger mb-3" type="button" id="button-addon2" onClick={() => removeSkill(idx)}>x</button>
           </div>
         
         </div>
@@ -79,7 +79,8 @@ const Signup = () => {
     });
   };
 
-  const addSkill = () => {
+  const addSkill = event => {
+    event.preventDefault();
     setValues(prevState => {
       return {
         ...prevState,
@@ -91,44 +92,48 @@ const Signup = () => {
   const signUpForm = () => (
     <form onSubmit={clickSubmit}>
       <div className="form-group">
-        <label className="text-muted">Name</label>
         <input
           onChange={handleChange("name")}
           type="text"
+          placeholder="Name"
           className="form-control"
+          value={name}
         />
       </div>
 
       <div className="form-group">
-        <label className="text-muted">Email</label>
         <input
           onChange={handleChange("email")}
           type="email"
+          placeholder="Email"
           className="form-control"
+          value={email}
         />
       </div>
 
       <div className="form-group">
-        <label className="text-muted">Password</label>
         <input
           onChange={handleChange("password")}
           type="password"
+          placeholder="Password"
           className="form-control"
+          value={password}
         />
       </div>
 
       <div className="form-group">
-        <label className="text-muted">Studying</label>
         <input
           onChange={handleChange("studying")}
           type="text"
+          placeholder="I'm studying..."
           className="form-control"
+          value={studying}
         />
       </div>
 
       <div>
         <div>{createInputs()}</div>
-        <button className="btn btn-success btn-sm mb-3" onClick={addSkill} type="text">
+        <button className="btn btn-outline-primary btn-sm mb-3" onClick={addSkill} type="text">
           Add more skills
         </button>
       </div>
@@ -139,13 +144,27 @@ const Signup = () => {
     </form>
   );
 
+  
+  const showError = () => (
+    <div className="alert alert-danger" style={{display: error ? "" : "none"}}>
+        {error}
+      </div>
+  );
+  
+  const showSuccess = () => (
+    <div className="alert alert-info" style={{display: success ? "" : "none"}}>
+        Success! Welcome to Campsite. <Link to="/signin">Sign in.</Link>
+    </div>
+  );
+
   return (
     <Layout
       title="Signup"
       description="Join today."
       className="container col-md-8 offset-md-2">
+      {showSuccess()}
+      {showError()}
       {signUpForm()}
-      {JSON.stringify(values)}
     </Layout>
   );
 };
