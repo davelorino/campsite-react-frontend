@@ -1,5 +1,5 @@
 
-// users Signin
+// users Signup
 import React, { useState } from "react";
 import Layout from '../core/Layout';
 import {signup} from '../auth';
