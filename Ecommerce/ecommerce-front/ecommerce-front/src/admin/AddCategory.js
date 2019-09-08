@@ -67,7 +67,7 @@ const AddCategory = () => {
   );
   
   return(
-      <Layout title="Category" description="Manage your projects more effectively with categories." className="container">
+      <Layout title="Category" description="Manage your projects more effectively with categories.">
           <div className="row">
               <div className="col-md-8 offset-md-2">
                   {showSuccess()}
