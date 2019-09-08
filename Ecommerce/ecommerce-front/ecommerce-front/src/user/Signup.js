@@ -25,7 +25,7 @@ const Signup = () => {
   const clickSubmit = event => {
     event.preventDefault();
     setValues({...values, error: false});
-    signup({ name, email, password, studying, skills, role_type })
+    signup({ name, email, password, studying, skills, role_type, business_name })
     .then( data => {
       if(data.error) {
         setValues({...values, error: data.error, success: false})

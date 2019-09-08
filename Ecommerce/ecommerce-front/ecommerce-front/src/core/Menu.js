@@ -29,11 +29,21 @@ const Menu = ({ history }) => (
               </Link>
           </li>
           
-          <li className="nav-item">
+          {isAuthenticated() && isAuthenticated().user.role_type === "Work on a project" && (
+            <li className="nav-item">
               <Link className="nav-link" style={isActive(history, "/user/dashboard")} to="/user/dashboard">
               Dashboard
               </Link>
           </li>
+          )}
+          
+          {isAuthenticated() && isAuthenticated().user.role_type === "Post a project" && (
+            <li className="nav-item">
+              <Link className="nav-link" style={isActive(history, "/admin/dashboard")} to="/admin/dashboard">
+              Dashboard
+              </Link>
+          </li>
+          )}
           
           
           {!isAuthenticated() && (
