@@ -13,17 +13,19 @@ const Signup = () => {
     studying: "",
     skills: [""],
     error: "",
-    success: ""
+    success: "",
+    role_type: "",
+    business_name: ""
   });
 
-  const { name, email, password, studying, skills, success, error } = values;
+  const { name, email, password, studying, skills, success, error, role_type, business_name } = values;
   
  
 
   const clickSubmit = event => {
     event.preventDefault();
     setValues({...values, error: false});
-    signup({ name, email, password, studying, skills })
+    signup({ name, email, password, studying, skills, role_type })
     .then( data => {
       if(data.error) {
         setValues({...values, error: data.error, success: false})
@@ -33,7 +35,9 @@ const Signup = () => {
           name: '',
           email: '',
           password: '',
+          business_name: '',
           studying: '',
+          role_type: '',
           skills: [''],
           error: '',
           success: true 
@@ -50,13 +54,21 @@ const Signup = () => {
     return values.skills.map((skill, idx) => {
       return (
         <div className="input-group">
-          <input value={skill} placeholder="Enter a skill" onChange={e => updateSkill(e, idx)} type="text" className="form-control" />
-          <div clasName="input-group-append">
-      <button className="btn btn-outline-danger mb-3" type="button" id="button-addon2" onClick={() => removeSkill(idx)}>x</button>
-          </div>
-        
+            <input 
+                  value={skill} placeholder="Enter a skill" 
+                  onChange={e => updateSkill(e, idx)} 
+                  type="text" 
+                  className="form-control" 
+               />
+              <div className="input-group-append">
+                  <button 
+                        className="btn btn-outline-danger mb-3" 
+                        type="button" 
+                        id="button-addon2" 
+                        onClick={() => removeSkill(idx)}>x
+                   </button>
+              </div>
         </div>
-        
       );
     });
   };
@@ -91,58 +103,130 @@ const Signup = () => {
 
   const signUpForm = () => (
     <form onSubmit={clickSubmit}>
-      <div className="form-group">
-        <input
-          onChange={handleChange("name")}
-          type="text"
-          placeholder="Name"
-          className="form-control"
-          value={name}
-        />
-      </div>
-
-      <div className="form-group">
-        <input
-          onChange={handleChange("email")}
-          type="email"
-          placeholder="Email"
-          className="form-control"
-          value={email}
-        />
-      </div>
-
-      <div className="form-group">
-        <input
-          onChange={handleChange("password")}
-          type="password"
-          placeholder="Password"
-          className="form-control"
-          value={password}
-        />
-      </div>
-
-      <div className="form-group">
-        <input
-          onChange={handleChange("studying")}
-          type="text"
-          placeholder="I'm studying..."
-          className="form-control"
-          value={studying}
-        />
-      </div>
-
-      <div>
-        <div>{createInputs()}</div>
-        <button className="btn btn-outline-primary btn-sm mb-3" onClick={addSkill} type="text">
-          Add more skills
-        </button>
-      </div>
-
-      <button onClick={clickSubmit} className="btn btn-primary" type="submit">
-        Sign Up
-      </button>
-    </form>
+    
+    
+    <div className="form-group">
+         <select onChange={handleChange("role_type")} class="form-control">
+        <option selected>I want to...</option>
+        <option>Post a project</option>
+        <option>Work on a project</option>
+      </select>
+    </div>
+  
+    </form> 
   );
+
+
+
+    const renderInput = () => {
+      if(values.role_type === "Post a project"){
+          return (
+              <>  
+                <div className="form-group">
+                      <input
+                        onChange={handleChange("name")}
+                        type="text"
+                        placeholder="Name"
+                        className="form-control"
+                        value={name}
+                      />
+                </div>
+                
+                <div className="form-group">
+                      <input
+                        onChange={handleChange("business_name")}
+                        type="text"
+                        placeholder="Organization / Business"
+                        className="form-control"
+                        value={business_name}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <input
+                        onChange={handleChange("email")}
+                        type="email"
+                        placeholder="Email"
+                        className="form-control"
+                        value={email}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <input
+                        onChange={handleChange("password")}
+                        type="password"
+                        placeholder="Choose a password"
+                        className="form-control"
+                        value={password}
+                      />
+                    </div>
+                </>
+          );
+      } else if(values.role_type === "Work on a project") {
+        return (
+        <>  
+          <div className="form-group">
+                      <input
+                        onChange={handleChange("name")}
+                        type="text"
+                        placeholder="Name"
+                        className="form-control"
+                        value={name}
+                      />
+                </div>
+          <div className="form-group">
+                      <input
+                        onChange={handleChange("email")}
+                        type="email"
+                        placeholder="Email"
+                        className="form-control"
+                        value={email}
+                      />
+                    </div>
+              
+                    <div className="form-group">
+                      <input
+                        onChange={handleChange("studying")}
+                        type="text"
+                        placeholder="I'm studying..."
+                        className="form-control"
+                        value={studying}
+                      />
+                    </div>
+              
+                    <div>
+                      <div>{createInputs()}</div>
+                      <button className="btn btn-outline-primary btn-sm mb-3" onClick={addSkill} type="text">
+                        Add more skills
+                      </button>
+                    </div>
+                    
+                                  
+                    <div className="form-group">
+                      <input
+                        onChange={handleChange("password")}
+                        type="password"
+                        placeholder="Choose a password"
+                        className="form-control"
+                        value={password}
+                      />
+                    </div>
+              </>
+        )
+      }
+    }
+      
+      const renderSubmitButton = () => {
+       return (
+         <button onClick={clickSubmit} className="btn btn-dark" type="submit">
+            Sign Up
+          </button>
+          );
+      }
+    
+
+      
+
+      
 
   
   const showError = () => (
@@ -165,6 +249,8 @@ const Signup = () => {
       {showSuccess()}
       {showError()}
       {signUpForm()}
+      {renderInput()}
+      {renderSubmitButton()}
     </Layout>
   );
 };
