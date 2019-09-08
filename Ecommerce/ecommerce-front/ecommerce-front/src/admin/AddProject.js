@@ -14,6 +14,8 @@ const AddProject = () => {
     pitch_price: '',
     categories: [],
     category: '',
+    quantity: '',
+    applications: '',
     photo: '',
     loading: false,
     error: '',
@@ -29,6 +31,8 @@ const AddProject = () => {
           pitch_price,
           categories,
           category,
+          quantity,
+          applications,
           loading,
           error,
           createdProject,
@@ -70,6 +74,8 @@ const AddProject = () => {
             name: '', 
             description: '',
             pitch_price: '',
+            applications: '',
+            quantity: '',
             loading: false,
             createdProject: data.name
           });
