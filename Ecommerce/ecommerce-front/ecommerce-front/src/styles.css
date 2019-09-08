@@ -2,6 +2,19 @@
 .btn, .jumbotron, .nav :hover {
   border-radius: 0px;
 }
+.project-img {
+  min-height: 100px;
+}
+
+.jumbotron h2 {
+  margin-top: -20px;
+}
+
+@media only screen and (max-width: 600px) {
+  .jumbotron h2 {
+    margin-top: 10px;
+  }
+}
 
 .jumbotron {
     width: 30wh;
