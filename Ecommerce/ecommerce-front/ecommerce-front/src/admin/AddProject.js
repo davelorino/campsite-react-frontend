@@ -4,7 +4,7 @@ import React, {useState, useEffect} from "react";
 import Layout from '../core/Layout';
 import {isAuthenticated} from '../auth';
 import {Link} from 'react-router-dom';
-import {createProject} from './apiAdmin';
+import {createProject, getCategories} from './apiAdmin';
 
 const AddProject = () => {
   
@@ -35,8 +35,19 @@ const AddProject = () => {
           redirectToProfile,
           formData } = values;
   
+  // load categories and set form data
+  const init = () => {
+    getCategories().then(data => {
+      if(data.error) {
+        setValues({...values, error: data.error});
+      } else {
+        setValues({...values, categories: data, formData: new FormData()})
+      }
+    });
+  };
+  
   useEffect(() => {
-    setValues({...values, formData: new FormData()});
+    init();
   }, []); 
   
   const handleChange = name => event => {
@@ -114,8 +125,14 @@ const AddProject = () => {
                         onChange={handleChange('category')}
                         className="form-control"
                         >
-                        <option value="5d74edd793ffe3987f6e720a">PHP</option>
-                        <option value="5d74edd793ffe3987f6e720a">Python</option>
+                        <option>Select an option...</option>
+                        {categories && categories.map((c, i) => (
+                          <option 
+                                key = {i}
+                                value={c._id}>
+                                {c.name}
+                            </option>
+                                ))}
                     </select>
                 </div>
                 <div className="form-group">
@@ -124,6 +141,7 @@ const AddProject = () => {
                         onChange={handleChange('on_premises')}
                         className="form-control"
                         >
+                        <option>Selection an option...</option>
                         <option value="0">No</option>
                         <option value="1">Yes</option>
                     </select>
@@ -134,6 +152,27 @@ const AddProject = () => {
     </form>
   );
   
+  const showError = () => (
+    <div className="alert alert-danger" style={{display: error ? '' : 'none'}}>
+        {error}
+    </div>
+  );
+  
+  const showSuccess = () => (
+    <div className="alert alert-info" style={{display: createdProject ? '' : 'none'}}>
+        <h4>{`${createdProject} is created`}</h4>
+    </div>
+  );
+  
+  const showLoading = () => 
+    loading && (
+                <div classame="alert alert-info">
+                    <h5>
+                        Loading...
+                    </h5>
+                </div>
+                );
+  
   return (
       <Layout 
               title="Start something" 
@@ -141,6 +180,9 @@ const AddProject = () => {
               >
           <div className="row">
               <div className="col-md-8 offset-md-2">
+                  {showLoading()}
+                  {showSuccess()}
+                  {showError()}
                   {newPostForm()}
               </div>
           </div>
