@@ -60,6 +60,12 @@ const AddCategory = () => {
     }
   };
   
+  const goBack = () => (
+    <div className="mt-5">
+        <Link to="/admin/dashboard" className="text-warning">Back to Dashboard</Link>
+    </div>
+  );
+  
   return(
       <Layout title="Category" description="Manage your projects more effectively with categories." className="container">
           <div className="row">
@@ -67,6 +73,7 @@ const AddCategory = () => {
                   {showSuccess()}
                   {showError()}
                   {newCategoryForm()}
+                  {goBack()}
               </div>
           </div>
       </Layout>
