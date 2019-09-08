@@ -19,14 +19,14 @@ export const createCategory = (userId, token, category) => {
   };
   
   
-  export const createProduct = (userId, token, product) => {
-   return fetch(`${API}/product/create/${userId}`, {
+  export const createProject = (userId, token, project) => {
+   return fetch(`${API}/project/create/${userId}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         Authorization: `Bearer ${token}`
       },
-      body: product
+      body: project
       })
       .then(response => {
         return response.json();
