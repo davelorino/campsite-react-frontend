@@ -14,7 +14,7 @@ const LiveProjects = () => {
   const [error, setError] = useState(false);
   const [limit, setlimit] = useState(6);
   const [skip, setSkip] = useState(0);
-  const [filteredResults, setFilteredResults] = useState(0);
+  const [filteredResults, setFilteredResults] = useState([]);
   
     // load categories and set form data
      const init = () => {
@@ -33,10 +33,11 @@ const LiveProjects = () => {
      if(data.error) {
        setError(data.error);
      } else {
-       setFilteredResults(data);
+       setFilteredResults(data.data);
      }
-   })
+   });
   };
+  
   
   useEffect(() => {
     init();
@@ -72,7 +73,7 @@ const LiveProjects = () => {
   
   return(
   <Layout 
-        title="Live Projects" 
+        title="Start something." 
         description="These projects are live and waiting for you to apply." 
         className="container-fluid"
         >
@@ -95,7 +96,17 @@ const LiveProjects = () => {
                               />
                         </div>
                     </div>
-                  <div className="col-8"> {JSON.stringify(filteredResults)}</div>
+                  <div className="col-8">
+                  
+                      <h5 className="mb-4">Projects</h5>
+                          <div className="row">
+                              {filteredResults.map((project, i) => (
+                                
+                                    <Card key={i} project={project} />
+                                
+                              ))}
+                              </div>
+                  </div>
             </div>
   </Layout>
   );

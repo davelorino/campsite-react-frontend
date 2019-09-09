@@ -54,7 +54,7 @@ const AdminDashboard = () => {
   };
   
   return (
-      <Layout title="Dashboard" description="Keeping track of your projects is easy with Campsite." className="container">
+      <Layout title="Dashboard." description="Keeping track of your projects is easy with Campsite." className="container">
           <div className="row">
               <div className="col-3">
                   {adminLinks()}

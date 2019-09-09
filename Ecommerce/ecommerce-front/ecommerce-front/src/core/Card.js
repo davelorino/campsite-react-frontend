@@ -9,15 +9,15 @@ const Card = ({project}) => {
             <div className="card-header">{project.name}</div>
             <div className="card-body">
                 <ShowImage item={project} url="project" />
-                <p>{project.description}</p>
+                <p>{project.description.substring(0, 100)}</p>
                 <p>${project.pitch_price}</p>
                 <Link to="/">
                     <button className="btn btn-outline-dark mt-2 mb-2 mr-2">
-                        View Project
+                        View 
                     </button>
                 </Link>
                 <button className="btn btn-outline-warning mt-2 mb-2">
-                        Add to Card 
+                        Apply 
                     </button>
             </div>
             </div>
