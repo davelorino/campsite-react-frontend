@@ -23,6 +23,10 @@ const LiveProjects = () => {
     init()
   }, []);
   
+  const handleFilters = (filters, filterBy) => {
+    console.log('LIVE PROJECTS', filters, filterBy);
+  };
+  
   return(
   <Layout 
         title="Live Projects" 
@@ -33,8 +37,11 @@ const LiveProjects = () => {
                   <div className="col-4">
                     <h5>Filter by Category</h5>
                     <ul>
-                      <Checkbox categories={categories} />
-                      </ul>  
+                      <Checkbox 
+                                categories={categories} 
+                                handleFilters={filters => handleFilters(filters, 'category')}
+                                />
+                    </ul>  
                   </div>
                   
                   <div className="col-8">

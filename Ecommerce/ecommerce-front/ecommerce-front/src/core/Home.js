@@ -36,7 +36,7 @@ const Home = () => {
   }, []);
   
   return(
-  <Layout title="Browse" description="Browse the latest projects near you" className="container-fluid">
+  <Layout title="Browse" description="Browse the latest projects near you." className="container-fluid">
           <h4 className="mb-4">New Arrivals</h4>
               <div className="row">
                   {projectsByArrival.map((project, i) => (
