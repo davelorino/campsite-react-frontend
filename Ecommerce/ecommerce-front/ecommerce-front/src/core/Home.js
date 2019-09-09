@@ -17,8 +17,8 @@ const Home = () => {
       } else {
         setProjectsByApplications(data)
       }
-    })
-  }
+    });
+  };
   
   const loadProjectsByArrival = () => {
     getProjects('createdAt').then(data => {
@@ -27,16 +27,16 @@ const Home = () => {
       } else {
         setProjectsByArrival(data)
       }
-    })
-  }
+    });
+  };
   
   useEffect(() => {
       loadProjectsByArrival()
       loadProjectsByApplications()
-  }, [])
+  }, []);
   
   return(
-  <Layout title="Home Page" description="Node React E-commerce App" className="container-fluid">
+  <Layout title="Browse" description="Browse the latest projects near you" className="container-fluid">
           <h4 className="mb-4">New Arrivals</h4>
               <div className="row">
                   {projectsByArrival.map((project, i) => (

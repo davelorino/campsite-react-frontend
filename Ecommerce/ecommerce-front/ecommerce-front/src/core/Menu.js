@@ -29,6 +29,13 @@ const Menu = ({ history }) => (
               </Link>
           </li>
           
+
+          <li className="nav-item">
+              <Link className="nav-link" style={isActive(history, "/projects")} to="/projects">
+              Live Projects
+              </Link>
+          </li>
+          
           {isAuthenticated() && isAuthenticated().user.role_type === "Work on a project" && (
             <li className="nav-item">
               <Link className="nav-link" style={isActive(history, "/user/dashboard")} to="/user/dashboard">
