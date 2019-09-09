@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Layout from './Layout';
 import Card from './Card';
-import {getCategories} from './apiCore';
+import {getCategories, getFilteredProjects} from './apiCore';
 import Checkbox from './Checkbox';
 import RadioBox from './RadioBox';
 import {payments} from './fixedPayments';
@@ -10,8 +10,11 @@ const LiveProjects = () => {
   const [myFilters, setMyFilters] = useState({
     filters: { category: [], pitch_price: [] }
   });
-  const [categories, setCategories] = useState([])
-  const [error, setError] = useState(false)
+  const [categories, setCategories] = useState([]);
+  const [error, setError] = useState(false);
+  const [limit, setlimit] = useState(6);
+  const [skip, setSkip] = useState(0);
+  const [filteredResults, setFilteredResults] = useState(0);
   
     // load categories and set form data
      const init = () => {
@@ -24,8 +27,20 @@ const LiveProjects = () => {
     });
   };
   
+  const loadFilteredResults = (newFilters) => {
+   // console.log(newFilters);
+   getFilteredProjects(skip, limit, newFilters).then(data => {
+     if(data.error) {
+       setError(data.error);
+     } else {
+       setFilteredResults(data);
+     }
+   })
+  };
+  
   useEffect(() => {
     init();
+    loadFilteredResults(skip, limit, myFilters.Filters);
   }, []);
   
   const handleFilters = (filters, filterBy) => {
@@ -37,7 +52,7 @@ const LiveProjects = () => {
       let paymentValues = handlePayment(filters);
       newFilters.filters[filterBy] = paymentValues;
     }
-    
+    loadFilteredResults(myFilters.filters);
     setMyFilters(newFilters);
     };
   
@@ -52,6 +67,8 @@ const LiveProjects = () => {
     }
     return array;
   };
+  
+  
   
   return(
   <Layout 
@@ -78,7 +95,7 @@ const LiveProjects = () => {
                               />
                         </div>
                     </div>
-                  <div className="col-8"> {JSON.stringify(myFilters)}</div>
+                  <div className="col-8"> {JSON.stringify(filteredResults)}</div>
             </div>
   </Layout>
   );
