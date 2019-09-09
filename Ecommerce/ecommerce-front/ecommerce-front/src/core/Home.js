@@ -4,6 +4,7 @@ import React, {useState, useEffect} from 'react';
 import Layout from './Layout';
 import {getProjects} from './apiCore';
 import Card from './Card';
+import Search from './Search';
 
 const Home = () => {
   const [projectsByApplications, setProjectsByApplications] = useState([])
@@ -37,6 +38,8 @@ const Home = () => {
   
   return(
   <Layout title="Campsite." description="What can we do today?" className="container-fluid">
+          
+          <Search />
           <h4 className="mb-4">New Arrivals</h4>
               <div className="row">
                   {projectsByArrival.map((project, i) => (

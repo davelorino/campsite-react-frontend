@@ -36,6 +36,7 @@ const LiveProjects = () => {
      } else {
        setFilteredResults(data.data);
        setSize(data.size);
+       setSkip(0);
      }
    });
   };
