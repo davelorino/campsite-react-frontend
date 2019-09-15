@@ -1,4 +1,5 @@
  import {API} from '../config';
+ import queryString from 'query-string';
  
    export const getProjects = (sortBy) => {
     return fetch(`${API}/projects?sortBy=${sortBy}&order=desc&limit=6`, {
@@ -44,3 +45,20 @@ export const getFilteredProjects = (skip, limit, filters = {}) => {
          console.log(err);
       });
   };
+  
+  
+     export const list = (params) => {
+        const query = queryString.stringify(params);
+        return fetch(`${API}/projects/search?${query}`, {
+          method: "GET"
+        })
+        .then(response => {
+          return response.json();
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      };
+  
+  
+  

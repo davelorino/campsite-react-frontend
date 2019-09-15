@@ -40,6 +40,7 @@ const Home = () => {
   <Layout title="Campsite." description="What can we do today?" className="container-fluid">
           
           <Search />
+        <div className="container">  
           <h4 className="mb-4">New Arrivals</h4>
               <div className="row">
                   {projectsByArrival.map((project, i) => (
@@ -52,6 +53,7 @@ const Home = () => {
                   <Card key={i} project={project} />
                   ))}
               </div>
+        </div>
   </Layout>
   );
 };

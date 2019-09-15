@@ -16,7 +16,7 @@ const Card = ({project}) => {
                         View 
                     </button>
                 </Link>
-                <button className="btn btn-outline-warning mt-2 mb-2">
+                <button className="btn btn-outline-info mt-2 mb-2">
                         Apply 
                     </button>
             </div>

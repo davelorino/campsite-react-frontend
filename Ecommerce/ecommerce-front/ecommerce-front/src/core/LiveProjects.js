@@ -18,7 +18,7 @@ const LiveProjects = () => {
   const [filteredResults, setFilteredResults] = useState([]);
   
     // load categories and set form data
-     const init = () => {
+    const init = () => {
     getCategories().then(data => {
       if(data.error) {
         setError(data.error);
@@ -103,7 +103,7 @@ const LiveProjects = () => {
         className="container-fluid"
         >
             <div className="row">
-                  <div className="col-4">
+                  <div className="col-2">
                     <h5>Filter by Category</h5>
                     <ul>
                       <Checkbox 
@@ -121,7 +121,7 @@ const LiveProjects = () => {
                               />
                         </div>
                     </div>
-                  <div className="col-8">
+                  <div className="container">
                   
                       <h5 className="mb-4">Projects</h5>
                           <div className="row">

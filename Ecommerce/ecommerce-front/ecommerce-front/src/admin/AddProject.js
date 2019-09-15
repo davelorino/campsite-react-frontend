@@ -17,14 +17,15 @@ const AddProject = () => {
     quantity: '',
     applications: '',
     photo: '',
+    created_by: '',
     loading: false,
     error: '',
     createdProject: '',
     redirectToProfile: false,
     formData: ''
-  })
+  });
   
-    const { user, token } = isAuthenticated();
+ const { user, token } = isAuthenticated();
   
   const { name,
           description,
@@ -33,6 +34,7 @@ const AddProject = () => {
           category,
           quantity,
           applications,
+          created_by,
           loading,
           error,
           createdProject,
@@ -62,8 +64,7 @@ const AddProject = () => {
   
   const clickSubmit = event => {
     event.preventDefault()
-    setValues({...values, error: '', loading: true})
-  
+    setValues({...values, error: '', loading: true});
     createProject(user._id, token, formData)
     .then(data => {
       if(data.error) {
@@ -74,6 +75,7 @@ const AddProject = () => {
             name: '', 
             description: '',
             pitch_price: '',
+            created_by: '',
             applications: '',
             quantity: '',
             loading: false,
@@ -126,7 +128,7 @@ const AddProject = () => {
                         />
               </div>
               <div className="form-group">
-                  <label className="text-muted">Categpry</label>
+                  <label className="text-muted">Category</label>
                   <select
                         onChange={handleChange('category')}
                         className="form-control"
@@ -150,6 +152,17 @@ const AddProject = () => {
                         <option>Selection an option...</option>
                         <option value="0">No</option>
                         <option value="1">Yes</option>
+                    </select>
+                </div>
+                
+                <div className="form-group">
+                  <label className="text-muted">Project is for</label>
+                  <select
+                        onChange={handleChange('created_by')}
+                        className="form-control"
+                        >
+                        <option value={user._id}>Select an option...</option>
+                        <option value={user._id}>{user.business_name}</option>
                     </select>
                 </div>
                 
