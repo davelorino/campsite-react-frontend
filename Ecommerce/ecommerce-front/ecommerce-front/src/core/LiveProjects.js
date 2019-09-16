@@ -127,7 +127,9 @@ const LiveProjects = () => {
                           <div className="row">
                               {filteredResults.map((project, i) => (
                                 
-                                    <Card key={i} project={project} />
+                                    <div key={i} className="col-4 mb-3">
+                                       <Card project={project} />
+                                    </div>
                                 
                               ))}
                               </div>
