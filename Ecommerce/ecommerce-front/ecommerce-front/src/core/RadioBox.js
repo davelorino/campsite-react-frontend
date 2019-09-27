@@ -10,6 +10,7 @@ const handleChange = (event) => {
   setValue(event.target.value);
 };
 
+  {/*
 return payments.map((p, i) => (
     <div key={i}>
         <input type="radio"
@@ -20,6 +21,25 @@ return payments.map((p, i) => (
         <label className="form-check-label">{p.name}</label>
     </div>
   ));
+  */}
+  
+  return (                                                  
+     <select
+        onChange={handleChange}
+        className="form-control"
+     >
+        <option className="text-muted"></option>
+        {payments && payments.map((p, i) => (
+          <option 
+            key={i}
+            value={`${p._id}`} >                                 
+            {p.name}
+          </option>
+         ))}
+    </select>
+ );
+  
+  
 };
 
 export default RadioBox;

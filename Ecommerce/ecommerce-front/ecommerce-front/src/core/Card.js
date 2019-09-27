@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import ShowImage from './ShowImage';
 import moment from 'moment';
-import {addItem} from './helpers';
+import {addItem} from './cartHelpers';
 
 const Card = ({project, showViewProjectButton = true}) => {
   const [redirect, setRedirect] = useState(false);
@@ -40,10 +40,10 @@ const Card = ({project, showViewProjectButton = true}) => {
   
   return (
         <div className="card">
+              <ShowImage item={project} url="project" />
             <div className="card-header name">{project.name}</div>
             <div className="card-body">
             {shouldRedirect(redirect)}
-                <ShowImage item={project} url="project" />
                 <p className="Lead mt-2">{project.description.substring(0, 100)}</p>
                 <p className="black-10">${project.pitch_price}</p>
                 <p className="black-9">Category: {project.category && project.category.name}</p>

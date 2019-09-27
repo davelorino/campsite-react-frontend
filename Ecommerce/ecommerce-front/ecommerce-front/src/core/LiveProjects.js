@@ -4,6 +4,7 @@ import Card from './Card';
 import {getCategories, getFilteredProjects} from './apiCore';
 import Checkbox from './Checkbox';
 import RadioBox from './RadioBox';
+import Selectize from './Selectize';
 import {payments} from './fixedPayments';
 
 const LiveProjects = () => {
@@ -104,6 +105,7 @@ const LiveProjects = () => {
         >
             <div className="row">
                   <div className="col-2">
+                    {/*
                     <h5>Filter by Category</h5>
                     <ul>
                       <Checkbox 
@@ -112,7 +114,16 @@ const LiveProjects = () => {
                                 }
                               />
                         </ul>
-                        <h5>Filter by Payment</h5>
+                        */}
+                    <h6>Category</h6>
+                        <div className="mb-3">
+                              <Selectize 
+                                categories={categories} 
+                                handleFilters={filters => handleFilters(filters, 'category')
+                                }
+                              />
+                        </div>
+                        <h6>Payment</h6>
                     <div>
                       <RadioBox 
                                 payments={payments} 
@@ -120,10 +131,15 @@ const LiveProjects = () => {
                                 }
                               />
                         </div>
+                        
+                    
                     </div>
+                    
+                     
+                    
                   <div className="container">
                   
-                      <h5 className="mb-4">Projects</h5>
+                      <h5 className="mb-4"></h5>
                           <div className="row">
                               {filteredResults.map((project, i) => (
                                 

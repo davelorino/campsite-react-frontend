@@ -3,9 +3,13 @@ import Layout from '../core/Layout';
 import {isAuthenticated} from '../auth';
 import {Link} from 'react-router-dom';
 
+
+
 const Dashboard = () => {
   
   const {user: {_id, name, email, role_type}} = isAuthenticated();
+  
+  
   
     const userLinks = () => {
       return (
@@ -25,6 +29,8 @@ const Dashboard = () => {
         </div>
       );
   };
+  
+  
   
   const userInfo = () => {
     return (

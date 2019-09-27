@@ -28,9 +28,6 @@ const Project = (props) => {
   };
   
   
-  
-  
-  
   useEffect(() => {
     const projectId = props.match.params.projectId;
     loadSingleProject(projectId);

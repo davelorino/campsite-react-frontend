@@ -124,21 +124,21 @@ const Signup = () => {
               <>  
                 <div className="form-group">
                       <input
-                        onChange={handleChange("name")}
+                        onChange={handleChange("business_name")}
                         type="text"
                         placeholder="Name"
                         className="form-control"
-                        value={name}
+                        value={business_name}
                       />
                 </div>
                 
                 <div className="form-group">
                       <input
-                        onChange={handleChange("business_name")}
+                        onChange={handleChange("name")}
                         type="text"
                         placeholder="Organization / Business"
                         className="form-control"
-                        value={business_name}
+                        value={name}
                       />
                     </div>
                     <div className="form-group">

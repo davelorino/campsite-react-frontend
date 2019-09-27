@@ -2,6 +2,7 @@ import React, {Fragment} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import {signout, isAuthenticated} from '../auth'
 import {API} from '../config';
+import {itemTotal} from './cartHelpers';
 
 const isActive = (history, path) => {
   if(history.location.pathname === path) {
@@ -35,6 +36,16 @@ const Menu = ({ history }) => (
                Projects
               </Link>
           </li>
+          
+          {isAuthenticated() && isAuthenticated().user.role_type === "Work on a project" && ( 
+            <li className="nav-item">
+              <Link className="nav-link" style={isActive(history, "/cart")} to="/cart">
+                  Applications{" "} <sup><small className="cart-badge">{itemTotal()}</small></sup>
+               </Link>
+          </li>
+          )}
+          
+
           
           {isAuthenticated() && isAuthenticated().user.role_type === "Work on a project" && (
             <li className="nav-item">
