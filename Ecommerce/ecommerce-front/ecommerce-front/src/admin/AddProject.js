@@ -16,6 +16,7 @@ const AddProject = () => {
     category: '',
     quantity: '',
     applications: '',
+    business_name: '',
     photo: '',
     created_by: '',
     loading: false,
@@ -33,6 +34,7 @@ const AddProject = () => {
           categories,
           category,
           quantity,
+          business_name,
           applications,
           created_by,
           loading,
@@ -76,6 +78,7 @@ const AddProject = () => {
             description: '',
             pitch_price: '',
             created_by: '',
+            business_name: '',
             applications: '',
             quantity: '',
             loading: false,
@@ -156,13 +159,24 @@ const AddProject = () => {
                 </div>
                 
                 <div className="form-group">
-                  <label className="text-muted">Project is for</label>
+                  <label className="text-muted">Project Owner</label>
                   <select
                         onChange={handleChange('created_by')}
                         className="form-control"
                         >
                         <option value={user._id}>Select an option...</option>
                         <option value={user._id}>{user.business_name}</option>
+                    </select>
+                </div>
+                
+                <div className="form-group">
+                  <label className="text-muted">Project is for</label>
+                  <select
+                        onChange={handleChange('business_name')}
+                        className="form-control"
+                        >
+                        <option value={user.name}>Select an option...</option>
+                        <option value={user.name}>{user.name}</option>
                     </select>
                 </div>
                 

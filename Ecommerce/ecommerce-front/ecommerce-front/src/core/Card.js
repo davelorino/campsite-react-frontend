@@ -43,11 +43,12 @@ const Card = ({project, showViewProjectButton = true}) => {
               <ShowImage item={project} url="project" />
             <div className="card-header name">{project.name}</div>
             <div className="card-body">
+            <h6 className="card-title">{project.business_name}</h6>
             {shouldRedirect(redirect)}
                 <p className="Lead mt-2">{project.description.substring(0, 100)}</p>
                 <p className="black-10">${project.pitch_price}</p>
-                <p className="black-9">Category: {project.category && project.category.name}</p>
-                <p className="black-8">Added {moment(project.createdAt).fromNow()}</p>
+                <p className="black-10">{project.category && project.category.name}</p>
+                <p className="black-10">Added {moment(project.createdAt).fromNow()}</p>
                     {showViewButton(showViewProjectButton)}
                 {showApplyButton()}
             </div>
