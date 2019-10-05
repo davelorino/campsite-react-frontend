@@ -72,6 +72,7 @@ const LiveProjects = () => {
   
   const handleFilters = (filters, filterBy) => {
     // console.log('LIVE PROJECTS', filters, filterBy);
+  
     const newFilters = {...myFilters};
     newFilters.filters[filterBy] = filters;
     
@@ -94,7 +95,6 @@ const LiveProjects = () => {
     }
     return array;
   };
-  
   
   
   return(

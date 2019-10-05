@@ -10,7 +10,6 @@ const Dashboard = () => {
   const {user: {_id, name, email, role_type}} = isAuthenticated();
   
   
-  
     const userLinks = () => {
       return (
         <div className="card">

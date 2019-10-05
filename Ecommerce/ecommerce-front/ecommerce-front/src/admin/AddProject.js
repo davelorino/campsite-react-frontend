@@ -17,16 +17,25 @@ const AddProject = () => {
     quantity: '',
     applications: '',
     business_name: '',
+    skills_required: [''],
     photo: '',
     created_by: '',
     loading: false,
     error: '',
     createdProject: '',
-    redirectToProfile: false,
-    formData: ''
+    redirectToProfile: false
   });
   
  const { user, token } = isAuthenticated();
+ 
+
+ 
+  {/*
+ const arrayExists = (values) => {
+   let needed_skills = [""];
+ values.category2.needed_skills ? needed_skills = values.category2.needed_skills : needed_skills = [""];
+ console.log(needed_skills);
+ }; */}
   
   const { name,
           description,
@@ -37,11 +46,11 @@ const AddProject = () => {
           business_name,
           applications,
           created_by,
+          skills_required,
           loading,
           error,
           createdProject,
-          redirectToProfile,
-          formData } = values;
+          redirectToProfile } = values;
   
   // load categories and set form data
   const init = () => {
@@ -49,25 +58,127 @@ const AddProject = () => {
       if(data.error) {
         setValues({...values, error: data.error});
       } else {
-        setValues({...values, categories: data, formData: new FormData()})
+        setValues({...values, categories: data})
       }
     });
   };
+  
+  
+  
   
   useEffect(() => {
     init();
   }, []); 
   
+  {/*}
   const handleChange = name => event => {
+    {/*
     const value = name === 'photo' ? event.target.files[0] : event.target.value;
     formData.set(name, value);
+    
     setValues({...values, [name]: value});
+    console.log(values);
   };
   
+  */}
+  
+  const handleChange = name => event => {
+    setValues({ ...values, error: false, [name]: event.target.value });
+  {/*
+    console.log("console.log(values): ", values);
+    console.log("console.log(values.category2): ", values.category2);
+    console.log("console.log(JSON.parse([values.category2]).needed_skills): ", JSON.parse([values.category2]).needed_skills);
+    console.log("console.log(values.category2.needed_skills): ", values.category2.needed_skills)
+    console.log(JSON.parse([values.category2]).needed_skills.length)
+    console.log([values.category2.name])
+    */}
+    console.log(values);
+    };
+  
+
+      
+  
+  
+  const createInputs = () => {
+    if(values) {
+    return values.skills_required.map((skill, idx) => {
+      return (
+        <div className="input-group">
+          <select
+                  onChange={e => updateSkill(e, idx)} 
+                  className="form-control">
+                  type="text"
+                  <option>Select an option...</option>
+                  <option>Select another option...</option>
+              
+            {categories && categories.map((q, w) => {
+             if(q.name == category) { 
+               console.log("Hello world");
+                {return q.needed_skills.map((x, y) => {
+                       return(       
+                              <option 
+                                 key={y}
+                                value={x} >
+                                 {x}
+                                </option> 
+                        )
+                      })}}})}     
+               </select>
+              <div className="input-group-append">
+                  <button 
+                        className="btn btn-outline-danger mb-3" 
+                        type="button" 
+                        id="button-addon2" 
+                        onClick={() => removeSkill(idx)}>x
+                   </button>
+              </div>
+        </div>
+        
+      );
+    });
+    };
+  };
+
+  const updateSkill = (e, index) => {
+    const userCopy = { ...values };
+    userCopy.skills_required[index] = e.target.value;
+    setValues(userCopy);
+  };
+
+  const removeSkill = index => {
+    const userCopy = { ...values };
+    const userCopySkills = [...userCopy.skills_required];
+
+    userCopySkills.splice(index, 1);
+
+    setValues({
+      ...userCopy,
+      skills_required: [...userCopySkills]
+    });
+  };
+
+  const addSkill = event => {
+    event.preventDefault();
+    setValues(prevState => {
+      return {
+        ...prevState,
+        skills_required: [...prevState.skills_required, ""]
+      }; 
+    });
+  };
+  
+  
+  
   const clickSubmit = event => {
-    event.preventDefault()
+    event.preventDefault();
     setValues({...values, error: '', loading: true});
-    createProject(user._id, token, formData)
+    createProject(user._id, token, { name,
+          description,
+          pitch_price,
+          category,
+          business_name,
+          created_by,
+          skills_required })
     .then(data => {
       if(data.error) {
           setValues({...values, error: data.error})
@@ -79,8 +190,7 @@ const AddProject = () => {
             pitch_price: '',
             created_by: '',
             business_name: '',
-            applications: '',
-            quantity: '',
+            skills_required: [''],
             loading: false,
             createdProject: data.name
           });
@@ -91,6 +201,7 @@ const AddProject = () => {
   const newPostForm = () => (
     <form className="mb-3" onSubmit={clickSubmit}>
     
+    {/*
         <h5>Project Photo</h5>
             <div className="form-group">
                   <label className="btn btn-dark">
@@ -101,7 +212,7 @@ const AddProject = () => {
                            onChange={handleChange('photo')} 
                            />
                   </label>
-              </div>
+              </div> */}
               
               <div className="form-group">
                   <label className="text-muted">Name</label>
@@ -130,6 +241,8 @@ const AddProject = () => {
                         className="form-control"
                         />
               </div>
+              
+              
               <div className="form-group">
                   <label className="text-muted">Category</label>
                   <select
@@ -140,12 +253,22 @@ const AddProject = () => {
                         {categories && categories.map((c, i) => (
                           <option 
                                 key = {i}
-                                value={c._id}>
+                                value={c.name}>
                                 {c.name}
                             </option>
                                 ))}
                     </select>
                 </div>
+                
+                {showSkillsInfo()}
+                
+                   <div>
+                      <div>{createInputs()}</div>
+                      <button className="btn btn-outline-primary btn-sm mb-3" onClick={addSkill} type="text">
+                        Add more skills
+                      </button>
+                    </div>
+                
                 <div className="form-group">
                   <label className="text-muted">On Premises</label>
                   <select
@@ -193,7 +316,7 @@ const AddProject = () => {
   
   const showSuccess = () => (
     <div className="alert alert-info" style={{display: createdProject ? '' : 'none'}}>
-        <h4>{`${createdProject} is created`}</h4>
+        <p>{`Success! ${createdProject} is created.`}</p>
     </div>
   );
   
@@ -205,6 +328,12 @@ const AddProject = () => {
                     </h5>
                 </div>
                 );
+                
+      const showSkillsInfo = () => (
+    <div className="alert alert-info" style={{display: category ? '' : 'none'}}>
+        <p>{`These are some suggested skills for ${category} projects. We recommend that you select some skills that you want your applicants to have for this project.`}</p>
+    </div>
+  );            
   
   return (
       <Layout 
@@ -217,6 +346,7 @@ const AddProject = () => {
                   {showSuccess()}
                   {showError()}
                   {newPostForm()}
+
               </div>
           </div>
       </Layout>

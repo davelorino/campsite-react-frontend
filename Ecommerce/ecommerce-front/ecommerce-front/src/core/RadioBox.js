@@ -30,7 +30,7 @@ return payments.map((p, i) => (
      >
         <option className="text-muted"></option>
         {payments && payments.map((p, i) => (
-          <option 
+           <option 
             key={i}
             value={`${p._id}`} >                                 
             {p.name}

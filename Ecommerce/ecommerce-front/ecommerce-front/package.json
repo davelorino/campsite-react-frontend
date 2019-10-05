@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "http-proxy-middleware": "^0.20.0",
     "mdbreact": "^4.19.2",
     "moment": "^2.24.0",
     "query-string": "^6.8.3",

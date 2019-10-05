@@ -13,7 +13,7 @@ import AddCategory from './admin/AddCategory';
 import AddProject from './admin/AddProject';
 import Project from './core/Project';
 import Cart from './core/Cart';
-
+import ProjectApplication from './user/ProjectApplication';
 
 const Routes = () => {
   return (<BrowserRouter> 
@@ -24,6 +24,7 @@ const Routes = () => {
                   <Route path = "/project/:projectId" exact component={Project}/>
                   <Route path = "/signin" exact component={Signin}/>
                   <Route path = "/signup" exact component={Signup}/>
+                  <Route path = "/project/application/:projectId" exact component={ProjectApplication}/>
                   
                   <PrivateRoute path = "/user/dashboard" exact component={Dashboard}/>
                   <AdminRoute path = "/admin/dashboard" exact component={AdminDashboard}/>

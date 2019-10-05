@@ -5,6 +5,7 @@ import Layout from '../core/Layout';
 import {signup} from '../auth';
 import {Link} from 'react-router-dom';
 
+
 const Signup = () => {
   const [values, setValues] = useState({
     name: "",

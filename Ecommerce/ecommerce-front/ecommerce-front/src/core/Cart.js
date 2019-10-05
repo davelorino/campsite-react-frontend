@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Layout from './Layout';
 import {getProjects} from './apiCore';
 import Card from './Card';
+
 import { getCart } from './cartHelpers';
 import {Link} from 'react-router-dom'
 
@@ -17,10 +18,13 @@ const Cart = () => {
       <div>
         <h5>You have shortlisted these projects</h5><br/>
         <p className="lead">Complete the application by clicking 'Apply'</p>
-        {items.map((project, i) => (<Card key={i} project={project} /> ))}
+        {items.map((project, i) => (
+          <Card key={i} project={project} showApplyButton={false} showBeginButton={true} /> 
+          ))}
       </div>  
     );
   };
+  
   
   const noItemsMessage = () => (
     <h5>

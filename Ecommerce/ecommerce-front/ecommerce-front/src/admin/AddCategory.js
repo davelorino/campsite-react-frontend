@@ -6,26 +6,32 @@ import {isAuthenticated} from '../auth';
 import {Link} from 'react-router-dom';
 import {createCategory} from './apiAdmin';
 
+
 const AddCategory = () => {
-  const [name, setName] = useState('');
+  const [values, setValues] = useState({
+    name: "",
+    needed_skills: [""]
+  });
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   
   const {user, token} = isAuthenticated();
   
-  const handleChange = (e) => {
+  const { name, needed_skills } = values;
+  
+  const handleChange = name => (e) => {
       setError('');
-      setName(e.target.value);
+      setValues({...values, [name]: e.target.value});
   };
   
   const clickSubmit = (e) => {
     e.preventDefault();
     setError('');
     setSuccess(false);
-    createCategory(user._id, token, {name})
+    createCategory(user._id, token, { name, needed_skills })
     .then(data => {
       if(data.error) {
-        setError(data.error);
+        setValues({...values, error: data.error});
       } else {
         setError("");
         setSuccess(true);
@@ -53,6 +59,7 @@ const AddCategory = () => {
       return <h5 className="text-info">{name} is created</h5>
     }
   };
+  
   
   const showError = () => {
     if(error) {

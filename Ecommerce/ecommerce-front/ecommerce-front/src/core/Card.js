@@ -4,8 +4,9 @@ import ShowImage from './ShowImage';
 import moment from 'moment';
 import {addItem} from './cartHelpers';
 
-const Card = ({project, showViewProjectButton = true}) => {
+const Card = ({project, showViewProjectButton = true, showApplyButton = true, showBeginButton = false }) => {
   const [redirect, setRedirect] = useState(false);
+  
   const showViewButton = (showViewProjectButton) => {
     return(
       showViewProjectButton && (
@@ -19,10 +20,11 @@ const Card = ({project, showViewProjectButton = true}) => {
   };
   
   const addToCart = () => {
-    addItem(project, () => {
+      addItem(project, () => {
       setRedirect(true);
     });
   };
+  
   
   const shouldRedirect = redirect => {
     if(redirect) {
@@ -30,12 +32,26 @@ const Card = ({project, showViewProjectButton = true}) => {
     }
   };
   
-  const showApplyButton = () => {
+
+  const showApply = (showApplyButton) => {
     return (
+      showApplyButton && (
       <button onClick={addToCart} className="btn btn-outline-info mt-2 mb-2">
           Apply 
       </button>
-    );
+    ));
+  };
+
+  
+  const showBeginApplication = (showBeginButton) => {
+    return (
+      showBeginButton && (
+     <Link to={`project/application/${project._id}`}>
+          <button className="btn btn-outline-info mt-2 mb-2">
+              Apply 
+          </button>
+      </Link>
+    ));
   };
   
   return (
@@ -50,7 +66,8 @@ const Card = ({project, showViewProjectButton = true}) => {
                 <p className="black-10">{project.category && project.category.name}</p>
                 <p className="black-10">Added {moment(project.createdAt).fromNow()}</p>
                     {showViewButton(showViewProjectButton)}
-                {showApplyButton()}
+                    {showApply(showApplyButton)}
+                    {showBeginApplication(showBeginButton)}
             </div>
             </div>
   );

@@ -24,9 +24,10 @@ export const createCategory = (userId, token, category) => {
       method: "POST",
       headers: {
         Accept: "application/json",
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`
       },
-      body: project
+      body: JSON.stringify(project)
       })
       .then(response => {
         return response.json();
@@ -35,6 +36,8 @@ export const createCategory = (userId, token, category) => {
          console.log(err);
       });
   };
+  
+  
   
   export const getCategories = () => {
     return fetch(`${API}/categories`, {
