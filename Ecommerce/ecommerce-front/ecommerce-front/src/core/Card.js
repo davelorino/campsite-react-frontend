@@ -19,6 +19,7 @@ const Card = ({project, showViewProjectButton = true, showApplyButton = true, sh
     );
   };
   
+  
   const addToCart = () => {
       addItem(project, () => {
       setRedirect(true);
@@ -42,7 +43,6 @@ const Card = ({project, showViewProjectButton = true, showApplyButton = true, sh
     ));
   };
 
-  
   const showBeginApplication = (showBeginButton) => {
     return (
       showBeginButton && (

@@ -9,11 +9,13 @@ import PrivateRoute from './auth/PrivateRoute';
 import AdminRoute from './auth/AdminRoute';
 import Dashboard from './user/UserDashboard';
 import AdminDashboard from './user/AdminDashboard';
+import ProjectApplicants from './user/ProjectApplicants';
 import AddCategory from './admin/AddCategory';
 import AddProject from './admin/AddProject';
 import Project from './core/Project';
 import Cart from './core/Cart';
 import ProjectApplication from './user/ProjectApplication';
+import SelectApplicant from './core/SelectApplicant';
 
 const Routes = () => {
   return (<BrowserRouter> 
@@ -26,7 +28,10 @@ const Routes = () => {
                   <Route path = "/signup" exact component={Signup}/>
                   <Route path = "/project/application/:projectId" exact component={ProjectApplication}/>
                   
+                  <PrivateRoute path = "/admin/:userId/:applicationId" exact component={SelectApplicant}/>
                   <PrivateRoute path = "/user/dashboard" exact component={Dashboard}/>
+                  
+                  <AdminRoute path = "/admin/project/applicants/:projectId/:userId" exact component={ProjectApplicants}/>
                   <AdminRoute path = "/admin/dashboard" exact component={AdminDashboard}/>
                   <AdminRoute path = "/create/category" exact component={AddCategory}/>
                   <AdminRoute path = "/create/project" exact component={AddProject}/>

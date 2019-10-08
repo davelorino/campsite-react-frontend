@@ -18,12 +18,25 @@ const ProjectApplication = (props) => {
       applicantName: '',
       university: '',
       studying: '',
+      projectClient: '',
       bio: '',
       skills: [''],
-      experience: ['']
+      experience: [''],
+      payment: ''
     })
   
-    const {applicantId, ownerId, projectId, applicantName, university, studying, skills, experience, bio } = application;
+    const {applicantId, 
+           projectName, 
+           ownerId, 
+           projectId, 
+           applicantName,
+           projectClient,
+           university, 
+           studying, 
+           skills, 
+           experience, 
+           bio,
+           payment} = application;
     const {user, token} = isAuthenticated();
     const [project, setProject] = useState({});
     const [error, setError] = useState(false);
@@ -55,7 +68,11 @@ const ProjectApplication = (props) => {
           skills,
           experience,
           ownerId,
-          applicantId
+          payment,
+          applicantId,
+          applicantName,
+          projectName,
+          projectClient,
            })
     .then(data => {
       if(data.error) {
@@ -65,6 +82,10 @@ const ProjectApplication = (props) => {
             ...application, 
             applicantId: '', 
             ownerId: '',
+            projectName: '',
+            payment: '',
+            bio: '',
+            projectClient: '',
             projectId: '',
             applicantName: '',
             skills: [''],
@@ -88,7 +109,12 @@ const ProjectApplication = (props) => {
                             error: false, [name]: 
                             event.target.value, 
                             applicantId: _id,
-                            ownerId: project.created_by});
+                            ownerId: project.created_by,
+                            projectName: project.name,
+                            payment: project.pitch_price,
+                            projectClient: project.business_name,
+                            applicantName: user.name
+        });
       {/*
         console.log("console.log(values): ", values);
         console.log("console.log(values.category2): ", values.category2);
@@ -167,7 +193,8 @@ const ProjectApplication = (props) => {
         if(application) {
         return application.skills.map((skill, idx) => {
           return (
-         
+          <>  
+            <hr/>
             <div className="input-group">
               <select
                       onChange={e => updateSkill(e, idx)} 
@@ -202,7 +229,7 @@ const ProjectApplication = (props) => {
                 placeholder={application.skills[idx] ? `Give a brief summary of your experience with ${skill}` : ''} />
                 </div>
              </div>  
-            
+            </>
           );
         });
         };

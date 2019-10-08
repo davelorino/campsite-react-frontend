@@ -6,6 +6,7 @@ import {getProjects} from './apiCore';
 import Card from './Card';
 import Search from './Search';
 
+
 const Home = () => {
   const [projectsByApplications, setProjectsByApplications] = useState([])
   const [projectsByArrival, setProjectsByArrival] = useState([])

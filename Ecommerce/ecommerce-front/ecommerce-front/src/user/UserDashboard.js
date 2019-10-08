@@ -1,19 +1,35 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Layout from '../core/Layout';
 import {isAuthenticated} from '../auth';
 import {Link} from 'react-router-dom';
-
-
+import {getApplicationHistory} from './apiUser';
+import moment from 'moment';
 
 const Dashboard = () => {
   
   const {user: {_id, name, email, role_type}} = isAuthenticated();
+  const token = isAuthenticated().token;
   
+  const [history, setHistory] = useState([]);
+  
+  const init = (userId, token) => {
+    getApplicationHistory(userId, token).then(data => {
+      if(data.error) {
+        console.log(data.error);
+      } else {
+        setHistory(data);
+      }
+    });
+  };
+  
+  useEffect(() => {
+    init(_id, token);
+  }, []);
   
     const userLinks = () => {
       return (
         <div className="card">
-            <h5 className="card-header">Profile</h5>
+            <h6 className="card-header">Profile</h6>
             <ul className="list-group"> 
                 <li className="list-group-item">
                     <Link className="nav-link" to="/cart">Projects</Link>
@@ -47,12 +63,29 @@ const Dashboard = () => {
     );
   };
   
-  const projectHistory = () => {
+  
+  
+  const userApplicationHistory = (history) => {
     return (
             <div className="card mb-5">
-              <h5 className="card-header">Project History</h5>
+              <h6 className="card-header">Project Application History</h6>
                   <ul className="list-group">
-                      <li className="list-group-item">history</li>
+                      <li className="list-group-item">
+                      
+                      {history.map((p, i) => (
+                        <>
+                        <div key={i}>
+                          <p className="sm">Project: {p.projectName}</p>
+                          <p className="sm">Client: {p.projectClient}</p>
+                          <p className="sm">Applied: {moment(p.createdAt).fromNow()}</p>
+                          <button className="btn btn-sm btn-outline-dark">View / Update</button> 
+                          </div>
+                          
+                        <hr/>
+                        </>
+                      ))}
+                      
+                      </li>
                   </ul>
             </div>
     );
@@ -65,7 +98,7 @@ const Dashboard = () => {
                   {userLinks()}
               </div>
               <div className="col-9">
-                  {projectHistory()}
+                  {userApplicationHistory(history)}
               </div>
           </div>
       </Layout>

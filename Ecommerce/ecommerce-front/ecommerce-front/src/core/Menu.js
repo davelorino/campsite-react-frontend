@@ -25,14 +25,14 @@ const Menu = ({ history }) => (
   <div>
       <ul className={isSignin(history, "/signin")}>
           <li className="nav-item">
-              <Link className="nav-link" style={isActive(history, "/")} to="/">
+              <Link style={{fontSize:"small"}} className="nav-link" style={isActive(history, "/")} to="/">
               Home
               </Link>
           </li>
           
 
           <li className="nav-item">
-              <Link className="nav-link" style={isActive(history, "/projects")} to="/projects">
+              <Link style={{fontSize:"smaller"}} className="nav-link" style={isActive(history, "/projects")} to="/projects">
                Projects
               </Link>
           </li>

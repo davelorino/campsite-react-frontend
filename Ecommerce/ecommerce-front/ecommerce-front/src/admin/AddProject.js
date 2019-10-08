@@ -112,7 +112,7 @@ const AddProject = () => {
                   <option>Select another option...</option>
               
             {categories && categories.map((q, w) => {
-             if(q.name == category) { 
+             if(q._id == category) { 
                console.log("Hello world");
                 {return q.needed_skills.map((x, y) => {
                        return(       
@@ -253,7 +253,7 @@ const AddProject = () => {
                         {categories && categories.map((c, i) => (
                           <option 
                                 key = {i}
-                                value={c.name}>
+                                value={c._id}>
                                 {c.name}
                             </option>
                                 ))}

@@ -96,7 +96,7 @@ const LiveProjects = () => {
     return array;
   };
   
-  
+
   return(
   <Layout 
         title="Start something." 
